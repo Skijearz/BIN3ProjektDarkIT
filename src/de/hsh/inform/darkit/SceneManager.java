@@ -6,7 +6,7 @@ import de.hsh.inform.darkit.enums.Scenes;
 import de.hsh.inform.darkit.gui.ControllerSet;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 public class SceneManager {
@@ -32,9 +32,14 @@ public class SceneManager {
 			controller = new ControllerSet[Scenes.values().length];
 			for (int i = 0; i < Scenes.values().length; i++) {
 
-				FXMLLoader loader = new FXMLLoader(getClass().getResource(Scenes.getFXML(Scenes.values()[i])));
-				AnchorPane pane = loader.load();
+				FXMLLoader loader = new FXMLLoader(SceneManager.class.getResource(Scenes.getFXML(Scenes.values()[i])));
+				Pane pane = loader.load();
 				scenes[i] = new Scene(pane);
+				/*Äquivalent zu : 
+				 * MainMenuController mwc = loader.getController();
+				 * und :
+				 * MainMenuController.setMain();
+				 */
 				controller[i] = loader.getController();
 				controller[i].setSceneManager(this);
 			}
