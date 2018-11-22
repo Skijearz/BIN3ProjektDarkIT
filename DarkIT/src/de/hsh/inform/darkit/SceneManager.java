@@ -23,12 +23,11 @@ public class SceneManager {
 
 		this.changeScene(Scenes.mainMenu);
 		primaryStage.setResizable(false);
-		primaryStage.setOnCloseRequest(evt -> {
-				System.exit(1);
 		primaryStage.show();
-
+		primaryStage.setOnCloseRequest(evt -> {
+			System.exit(1);
+		});
 	}
-
 	public void setController() {
 		try {
 			controller = new ControllerSet[Scenes.values().length];
@@ -58,3 +57,4 @@ public class SceneManager {
 		return controller[scene.ordinal()];
 	}
 }
+	
