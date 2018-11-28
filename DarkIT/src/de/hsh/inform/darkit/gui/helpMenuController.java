@@ -17,8 +17,8 @@ public class helpMenuController implements ControllerSet {
 	}
 
 	@Override
-	public void setSceneManager(SceneManager stage) {
-		sm = stage;
+	public void setSceneManager(SceneManager sceneManager) {
+		sm = sceneManager;
 		
 	}
 

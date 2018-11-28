@@ -23,6 +23,7 @@ public class SceneManager {
 
 		this.changeScene(Scenes.mainMenu);
 		primaryStage.setResizable(false);
+		primaryStage.setTitle("DarkIT");
 		primaryStage.show();
 		primaryStage.setOnCloseRequest(evt -> {
 			System.exit(1);

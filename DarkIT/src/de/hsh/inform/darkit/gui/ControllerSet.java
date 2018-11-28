@@ -6,7 +6,7 @@ import de.hsh.inform.darkit.enums.Scenes;
 public abstract interface ControllerSet {
 	
 	public abstract ControllerSet getController(Scenes scene);
-	public abstract void setSceneManager(SceneManager stage);
+	public abstract void setSceneManager(SceneManager sceneManager);
 	
 
 }

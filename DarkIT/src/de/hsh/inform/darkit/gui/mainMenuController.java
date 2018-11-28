@@ -8,8 +8,9 @@ public class mainMenuController implements ControllerSet {
 	SceneManager sm;
 
 	public void startGame() {
-		((GameWindowController) sm.getController(Scenes.GameWindow)).startGame();
-		sm.changeScene(Scenes.GameWindow);
+		sm.changeScene(Scenes.gameWindow);
+		((gameWindowController) sm.getController(Scenes.gameWindow)).gameStart();
+		
 	}
 
 	@FXML
@@ -35,8 +36,8 @@ public class mainMenuController implements ControllerSet {
 	}
 
 	@Override
-	public void setSceneManager(SceneManager stage) {
-		sm = stage;
+	public void setSceneManager(SceneManager sceneManager) {
+		sm = sceneManager;
 
 	}
 
