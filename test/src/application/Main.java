@@ -51,11 +51,7 @@ public class Main extends Application {
         primaryStage.setResizable(false);
         primaryStage.show();
 
-        // we how have a mainPane that we can hang stuff on and see it
-        // in a window...
 
-        // loading tmx and expanding it into various java structures
-        // it also loads the tile map images
         try {
         	
         	URL url = getUrlFromResources("application/map1.tmx");
@@ -66,9 +62,6 @@ public class Main extends Application {
             e.printStackTrace();
         }
 
-        // assume just the one layer
-        // you could have different layers on different
-        // javafx nodes sitting on top of each other...
         layer = (TileLayer)map.getLayer(0);
         if (layer==null) {
             System.out.println("can't get map layer");
@@ -82,9 +75,7 @@ public class Main extends Application {
         Tile tile = null;
         int tid;
 
-        // as libtiled provides awt images we must convert them to
-        // javafx images but we don't want a new image for every
-        // single tile on the map
+
         HashMap<Integer,Image> tileHash = new HashMap<Integer,Image>();
         Image tileImage = null;
 
@@ -93,10 +84,10 @@ public class Main extends Application {
                 tile = layer.getTileAt(x,y);
                 tid = tile.getId();
                 if (tileHash.containsKey(tid)) {
-                    // if we have already used the image get it from the hashmap
+                  
                     tileImage=tileHash.get(tid);
                 } else {
-                    // if we haven't seen it before convert and cache it
+                  
                     try {
                         tileImage=createImage(tile.getImage());
                     } catch (Exception e) {
@@ -109,15 +100,12 @@ public class Main extends Application {
                 iv.setTranslateX((x*16)+4);
                 iv.setTranslateY(y*16);
                 mainPane.getChildren().add(iv);
-                // at this point you might want to add the ImageView to a custom
-                // "tile" class including your own info which you can then place
-                // in a 2d array where the index's are the coordinates of the tile
 
             }
         }
-        // give some indication that caching did something!
+   
         System.out.println("tile image hash has "+tileHash.size()+" items");
-        // dump all the tmx stuff
+
         tileHash = null;
         map = null;
         layer = null;
@@ -127,9 +115,7 @@ public class Main extends Application {
         launch(args);
     }
 
-    // copy an awt image into a javafx image
-    // "borrowed" fragment from part of
-    // https://community.oracle.com/message/9655930#9655930
+  
     public static javafx.scene.image.Image createImage(java.awt.Image image) throws Exception {
         if (!(image instanceof RenderedImage)) {
             BufferedImage bufferedImage = new BufferedImage(image.getWidth(null),
