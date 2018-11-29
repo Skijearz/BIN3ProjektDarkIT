@@ -14,11 +14,15 @@ import java.awt.image.RenderedImage;
 import java.awt.image.BufferedImage;
 import java.awt.Graphics;
 import java.io.ByteArrayOutputStream;
+
+import java.net.URL;
+
 import javax.imageio.ImageIO;
 
 import org.mapeditor.core.Map;
 import org.mapeditor.core.Tile;
 import org.mapeditor.core.TileLayer;
+
 import org.mapeditor.io.TMXMapReader;
 
 import java.io.ByteArrayInputStream;
@@ -30,6 +34,7 @@ public class Main extends Application {
     Scene scene;
 
     TMXMapReader mapReader = new TMXMapReader();
+   
     Map map = null;
     TileLayer layer = null;
 
@@ -52,7 +57,11 @@ public class Main extends Application {
         // loading tmx and expanding it into various java structures
         // it also loads the tile map images
         try {
-            map = mapReader.readMap("map1.tmx");
+        	
+        	URL url = getUrlFromResources("application/map1.tmx");
+        	System.out.println(url.getPath());
+            map = mapReader.readMap(url.getPath());
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -97,7 +106,7 @@ public class Main extends Application {
                 }
                 ImageView iv = new ImageView(tileImage);
                 
-                iv.setTranslateX(x*16);
+                iv.setTranslateX((x*16)+4);
                 iv.setTranslateY(y*16);
                 mainPane.getChildren().add(iv);
                 // at this point you might want to add the ImageView to a custom
@@ -135,5 +144,9 @@ public class Main extends Application {
         out.flush();
         ByteArrayInputStream in = new ByteArrayInputStream(out.toByteArray());
         return new javafx.scene.image.Image(in);
+    }
+    private URL getUrlFromResources(String filename) {
+        ClassLoader classLoader = this.getClass().getClassLoader();
+        return classLoader.getResource(filename);
     }
 }
