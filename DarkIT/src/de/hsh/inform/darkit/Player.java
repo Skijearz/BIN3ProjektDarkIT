@@ -7,30 +7,40 @@ import de.hsh.inform.darkit.enums.Directions;
  *
  */
 public class Player {
-	private int x;
-	private int y;
+	private static final double VELOCITY = 1.0;
+	
+	
+	private double x;
+	private double y;
+	private double velX;
+	private double velY;
 
 	public Player(int x, int y) {
 		this.x = x;
 		this.y = y;
 	}
+	//Moves the player around based on his Velocity in the x or y direction, updates through a gameloop  
+	public void move() {
+		setX(getX()+getVelX());
+		setY(getY()+getVelY());
+	}
 /**
- * Player move method, set the coordinate of the entity based on the key pressed
+ * Player keyPress (move) handling method, set the velocity of the entity based on the key pressed
  * @param d Enum of the possible directions a player can walk, based on the key press
  */
-	public void move(Directions d) {
+	public void moveKeyPress(Directions d) {
 		switch (d) {
 		case UP:
-			this.setY(getY() - 3);
+			this.setVelY(-VELOCITY);
 			break;
 		case DOWN:
-			this.setY(getY() + 3);
+			this.setVelY(VELOCITY);
 			break;
 		case LEFT:
-			this.setX(getX() - 3);
+			this.setVelX(-VELOCITY);
 			break;
 		case RIGHT:
-			this.setX(getX() + 3);
+			this.setVelX(VELOCITY);
 			break;
 
 		default:
@@ -38,31 +48,58 @@ public class Player {
 		}
 
 	}
+	/**
+	 * Player keyRelease (move) handling method, resets the velocity of the given direction to 0.
+	 * @param d
+	 */
+	public void moveKeyRelease(Directions d) {
+		switch (d) {
+		case UP:
+			this.setVelY(0);
+			break;
+		case DOWN:
+			this.setVelY(0);
+			break;
+		case LEFT:
+			this.setVelX(0);
+			break;
+		case RIGHT:
+			this.setVelX(0);
+			break;
 
-	public void setX(int x) {
-		this.x = x;
+		default:
+			break;
+		}
+
+	}
+	// getter and setter of Player variables
+	public void setX(double d) {
+		this.x = d;
 	}
 
-	public void setY(int y) {
-		this.y = y;
+	public void setY(double d) {
+		this.y = d;
 	}
 
-	public int getX() {
+	public double getX() {
 		return this.x;
 	}
 
-	public int getY() {
+	public double getY() {
 		return this.y;
 	}
 
-	public void moveUP() {
-		this.setY(getY() + 5);
-
+	public double getVelX() {
+		return velX;
 	}
-
-	public boolean checkBoundries() {
-		return false;
-
+	public void setVelX(double velX) {
+		this.velX = velX;
+	}
+	public double getVelY() {
+		return velY;
+	}
+	public void setVelY(double velY) {
+		this.velY = velY;
 	}
 
 }
