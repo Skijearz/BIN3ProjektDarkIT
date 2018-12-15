@@ -7,7 +7,7 @@ import de.hsh.inform.darkit.enums.Directions;
  *
  */
 public class Player {
-	private static final double VELOCITY = 1.0;
+	private static final double VELOCITY = 0.5;
 	
 	
 	private double x;
