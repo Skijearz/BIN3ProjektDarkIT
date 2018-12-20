@@ -5,12 +5,12 @@ import javafx.scene.shape.Rectangle;
 
 public class Sprite extends Rectangle {
 	private Player p;
-    public Sprite(double d, double e, int Width, int Height, Color color,Player p) {
+    public Sprite(double sartX, double startY, int Width, int Height, Color color,Player p) {
         super(Width, Height, color);
         this.p=p;
 
-        setTranslateX(d);
-        setTranslateY(e);
+        setTranslateX(sartX);
+        setTranslateY(startY);
     }
 public void Update() {
 	setTranslateX(p.getX());

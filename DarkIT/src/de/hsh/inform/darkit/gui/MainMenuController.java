@@ -1,15 +1,15 @@
 package de.hsh.inform.darkit.gui;
 
 import de.hsh.inform.darkit.SceneManager;
-import de.hsh.inform.darkit.enums.Scenes;
+import de.hsh.inform.darkit.Enums.Scenes;
 import javafx.fxml.FXML;
 
-public class mainMenuController implements ControllerSet {
+public class MainMenuController implements ControllerSet {
 	SceneManager sm;
 
 	public void startGame() {
 		sm.changeScene(Scenes.gameWindow);
-		((gameWindowController) sm.getController(Scenes.gameWindow)).gameStart();
+		((GameWindowController) sm.getController(Scenes.gameWindow)).gameStart();
 		
 	}
 

@@ -1,10 +1,10 @@
 package de.hsh.inform.darkit.gui;
 
 import de.hsh.inform.darkit.SceneManager;
-import de.hsh.inform.darkit.enums.Scenes;
+import de.hsh.inform.darkit.Enums.Scenes;
 import javafx.fxml.FXML;
 
-public class helpMenuController implements ControllerSet {
+public class HelpMenuController implements ControllerSet {
 	SceneManager sm;
 	@FXML
 	public void backToMainMenu(){

@@ -2,7 +2,7 @@ package de.hsh.inform.darkit;
 
 import java.io.IOException;
 
-import de.hsh.inform.darkit.enums.Scenes;
+import de.hsh.inform.darkit.Enums.Scenes;
 import de.hsh.inform.darkit.gui.ControllerSet;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

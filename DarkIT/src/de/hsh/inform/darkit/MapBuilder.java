@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 import java.awt.image.RenderedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
 //import java.net.URL;
 import java.util.HashMap;
 
@@ -15,7 +16,7 @@ import org.mapeditor.core.Tile;
 import org.mapeditor.core.TileLayer;
 import org.mapeditor.io.TMXMapReader;
 
-import de.hsh.inform.darkit.enums.Maps;
+import de.hsh.inform.darkit.Enums.Maps;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -30,6 +31,7 @@ public class MapBuilder {
 	private int width;
 	private int height;
 	private boolean debug = false;
+	private ArrayList <Rectangle> obstacles = new ArrayList <Rectangle>();
 
 	public MapBuilder(Pane pane, Maps map) {
 		gamePane = pane;
@@ -39,8 +41,7 @@ public class MapBuilder {
 
 		try {
 
-			// URL url = getUrlFromResources(Maps.getMapFile(Maps.map1));
-			// System.out.println(url.getPath());
+		
 			map = mapReader.readMap(Maps.getMapFile(Maps.map1));
 
 		} catch (Exception e) {
@@ -101,7 +102,7 @@ public class MapBuilder {
 					iv.setTranslateY((y * 16) + 4);
 				
 					
-					//Check if the layer is called collision, if so , draw an rectangle on the position
+					//Check if the layer is called collision, if so, draw an rectangle on the position
 					//of an object which will have a collision box
 					if(layer.getName().equals("collision")&& tid != 18) {
 						Rectangle r = new Rectangle();
@@ -114,15 +115,21 @@ public class MapBuilder {
 						r.setY((y*16)+4);
 						r.setWidth(16);
 						r.setHeight(16);
+						obstacles.add(r);
+						
 						gamePane.getChildren().add(r);
-						r.toBack();
+						
+						
 					}else {
 						//Add the image to the pane
 						gamePane.getChildren().add(iv);
+						
+						
 					}
 					
 				}
 			}
+			
 			System.out.println("tile image hash has " + tileHash.size() + " items");
 			tileHash = null;
 		}
@@ -132,7 +139,8 @@ public class MapBuilder {
 		map = null;
 		layer = null;
 	}
-	//Converting and Image to an 
+	//Converting and Image to an javaFx image
+	//
 	public static javafx.scene.image.Image createImage(java.awt.Image image) throws Exception {
 		if (!(image instanceof RenderedImage)) {
 			BufferedImage bufferedImage = new BufferedImage(image.getWidth(null), image.getHeight(null),
@@ -148,9 +156,14 @@ public class MapBuilder {
 		ByteArrayInputStream in = new ByteArrayInputStream(out.toByteArray());
 		return new javafx.scene.image.Image(in);
 	}
-
-	/*
-	 * private URL getUrlFromResources(String filename) { ClassLoader classLoader =
-	 * this.getClass().getClassLoader(); return classLoader.getResource(filename); }
+	/**
+	 * Getter method
+	 * @return ArrayList of rectangles to determine obstacles
 	 */
+	public ArrayList <Rectangle> getObstacleList(){
+		return obstacles;
+	}
+
+
 }
+

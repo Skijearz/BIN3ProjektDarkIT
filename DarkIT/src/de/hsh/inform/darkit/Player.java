@@ -1,28 +1,33 @@
 package de.hsh.inform.darkit;
 
-import de.hsh.inform.darkit.enums.Directions;
+import de.hsh.inform.darkit.Enums.Directions;
 /**
  * 
  * Player entity class
  *
  */
 public class Player {
-	private static final double VELOCITY = 0.5;
+	private static final double VELOCITY = 1.0;
 	
 	
 	private double x;
 	private double y;
 	private double velX;
 	private double velY;
+	
+	
 
 	public Player(int x, int y) {
 		this.x = x;
 		this.y = y;
+		
 	}
 	//Moves the player around based on his Velocity in the x or y direction, updates through a gameloop  
-	public void move() {
+	public void move(boolean collision) {
+		if(!collision) {	
 		setX(getX()+getVelX());
 		setY(getY()+getVelY());
+		}
 	}
 /**
  * Player keyPress (move) handling method, set the velocity of the entity based on the key pressed
@@ -101,5 +106,6 @@ public class Player {
 	public void setVelY(double velY) {
 		this.velY = velY;
 	}
+
 
 }

@@ -2,9 +2,9 @@ package de.hsh.inform.darkit;
 
 import java.io.File;
 
-public class enums {
+public class Enums {
 	public enum Scenes{
-		mainMenu,helpMenu,gameWindow;
+		mainMenu,helpMenu,gameWindow,pauseWindow;
 
 		public static String getFXML(Scenes scene) {
 			

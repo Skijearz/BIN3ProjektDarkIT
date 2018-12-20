@@ -1,16 +1,18 @@
 package de.hsh.inform.darkit;
 
-import de.hsh.inform.darkit.enums.Directions;
-import de.hsh.inform.darkit.gui.gameWindowController;
+import de.hsh.inform.darkit.Enums.Directions;
+import de.hsh.inform.darkit.gui.GameWindowController;
 import javafx.animation.AnimationTimer;
 import javafx.scene.layout.Pane;
 
-public class gameLoop {
-	private gameWindowController gmc;
+public class GameLoop {
+	private GameWindowController gmc;
 	private Player p;
 	private Pane gamePane;
 	private Sprite player;
+	MapBuilder mb;
 	AnimationTimer gameTimer;
+	private boolean collision;
 
 	/**
 	 * GameLoop Constructor
@@ -19,7 +21,7 @@ public class gameLoop {
 	 * @param player   Sprite Player
 	 * @param p        Entity Player
 	 */
-	public gameLoop(gameWindowController gmc,Pane gamePane, Sprite player, Player p) {
+	public GameLoop(GameWindowController gmc,Pane gamePane, Sprite player, Player p,MapBuilder mb) {
 		this.gmc = gmc;
 		this.gamePane = gamePane;
 		this.player = player;
@@ -27,6 +29,7 @@ public class gameLoop {
 		this.keyBinds();
 		this.createGameloop();
 		this.startTimer();
+		this.mb = mb;
 	}
 
 	/**
@@ -39,8 +42,12 @@ public class gameLoop {
 
 			@Override
 			public void handle(long now) {
+				collision = Collision.checkCollision(mb.getObstacleList(),p);
+				p.move(collision);
 				player.Update();
-				p.move();
+				
+				
+				
 			}
 			
 		};
@@ -58,19 +65,23 @@ public class gameLoop {
 			switch (e.getCode()) {
 			case W:
 				p.moveKeyPress(Directions.UP);
+				
 				break;
 			case A:
 				p.moveKeyPress(Directions.LEFT);
+				
 				break;
 			case S:
 				p.moveKeyPress(Directions.DOWN);
+				
 				break;
 			case D:
 				p.moveKeyPress(Directions.RIGHT);
+				
 				break;
 			case ESCAPE:
 				gameTimer.stop();
-				gmc.switchToMainMenu();
+				gmc.switchToPauseMenu();
 			default:
 				break;
 			}
@@ -79,15 +90,19 @@ public class gameLoop {
 			switch (e.getCode()) {
 			case W:
 				p.moveKeyRelease(Directions.UP);
+				
 				break;
 			case A:
 				p.moveKeyRelease(Directions.LEFT);
+				
 				break;
 			case S:
 				p.moveKeyRelease(Directions.DOWN);
+				
 				break;
 			case D:
 				p.moveKeyRelease(Directions.RIGHT);
+				
 				break;
 			default:
 				break;
