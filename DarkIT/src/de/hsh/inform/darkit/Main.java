@@ -10,6 +10,7 @@ public class Main extends Application {
 	private Stage primaryStage;
 	SceneManager sm;
 	
+	
 	@Override
 	public void start(Stage primaryStage) {
 		this.primaryStage = primaryStage;

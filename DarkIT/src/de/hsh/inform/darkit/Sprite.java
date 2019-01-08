@@ -4,18 +4,27 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 public class Sprite extends Rectangle {
-	private Player p;
-    public Sprite(double sartX, double startY, int Width, int Height, Color color,Player p) {
-        super(Width, Height, color);
-        this.p=p;
+	private Entity e;
+	private double startX;
+	private double startY; 
+	
+	public Sprite(double startX, double startY, int Width, int Height, Color color, Entity e) {
+		super(Width, Height, color);
+		this.e = e;
+		this.startX = startX;
+		this.startY = startY;
+		
+		
+		super.setX(startX);
+		super.setY(startY);
+	}
 
-        setTranslateX(sartX);
-        setTranslateY(startY);
-    }
-public void Update() {
-	setTranslateX(p.getX());
-	setTranslateY(p.getY());
-}
-    
+	public void Update() {
+	
+		setTranslateX(e.getX()-startX);
+		setTranslateY(e.getY()-startY);
+		
+
+	}
 
 }

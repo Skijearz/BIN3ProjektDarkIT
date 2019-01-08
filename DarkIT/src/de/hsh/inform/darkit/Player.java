@@ -1,111 +1,130 @@
 package de.hsh.inform.darkit;
 
 import de.hsh.inform.darkit.Enums.Directions;
+
 /**
  * 
  * Player entity class
  *
  */
-public class Player {
+public class Player extends Entity {
+
 	private static final double VELOCITY = 1.0;
-	
-	
-	private double x;
-	private double y;
-	private double velX;
-	private double velY;
-	
-	
+	private boolean keyPressed = false;
+	private Directions whichKeyIsPressed;
 
 	public Player(int x, int y) {
-		this.x = x;
-		this.y = y;
-		
+		super(x, y);
+
 	}
-	//Moves the player around based on his Velocity in the x or y direction, updates through a gameloop  
+
+	@Override
 	public void move(boolean collision) {
-		if(!collision) {	
-		setX(getX()+getVelX());
-		setY(getY()+getVelY());
-		}
+		if (!collision) {
+			setX(getX() + getVelX());
+			setY(getY() + getVelY());
+		} /*
+			 * else { setVelX(0); setVelY(0); }
+			 */
 	}
-/**
- * Player keyPress (move) handling method, set the velocity of the entity based on the key pressed
- * @param d Enum of the possible directions a player can walk, based on the key press
- */
+
+	/**
+	 * Player keyPress (move) handling method, set the velocity of the entity based
+	 * on the key pressed.
+	 * Only one keyPress at a time
+	 * 
+	 * @param d Enum of the possible directions a player can walk, based on the key
+	 *          press
+	 */
 	public void moveKeyPress(Directions d) {
 		switch (d) {
 		case UP:
-			this.setVelY(-VELOCITY);
+			if (!keyPressed) {
+				this.setVelY(-VELOCITY);
+				keyPressed = true;
+				whichKeyIsPressed = Directions.UP;
+			}
 			break;
 		case DOWN:
-			this.setVelY(VELOCITY);
+			if (!keyPressed) {
+				this.setVelY(VELOCITY);
+				keyPressed = true;
+				whichKeyIsPressed = Directions.DOWN;
+			}
 			break;
 		case LEFT:
-			this.setVelX(-VELOCITY);
+			if (!keyPressed) {
+				this.setVelX(-VELOCITY);
+				keyPressed = true;
+				whichKeyIsPressed = Directions.LEFT;		
+			}
 			break;
 		case RIGHT:
-			this.setVelX(VELOCITY);
+			if (!keyPressed) {
+				this.setVelX(VELOCITY);
+				keyPressed = true;
+				whichKeyIsPressed = Directions.RIGHT;
+			}
 			break;
-
 		default:
 			break;
 		}
 
 	}
+
 	/**
-	 * Player keyRelease (move) handling method, resets the velocity of the given direction to 0.
+	 * Player keyRelease (move) handling method, resets the velocity of the given
+	 * direction to 0.
+	 * 
 	 * @param d
 	 */
 	public void moveKeyRelease(Directions d) {
 		switch (d) {
+		
 		case UP:
-			this.setVelY(0);
+			if (keyPressed) {
+				if (whichKeyIsPressed == Directions.UP) {
+					this.setVelY(0);
+					keyPressed = false;
+					whichKeyIsPressed = null;
+				}
+			}
 			break;
+			
 		case DOWN:
-			this.setVelY(0);
+			if (keyPressed) {
+				if (whichKeyIsPressed == Directions.DOWN) {
+					this.setVelY(0);
+					keyPressed = false;
+					whichKeyIsPressed = null;
+				}
+			}
 			break;
+			
 		case LEFT:
-			this.setVelX(0);
+			if (keyPressed) {
+				if (whichKeyIsPressed == Directions.LEFT) {
+					this.setVelX(0);
+					keyPressed = false;
+					whichKeyIsPressed = null;
+				}
+			}
 			break;
+			
 		case RIGHT:
-			this.setVelX(0);
+			if (keyPressed) {
+				if (whichKeyIsPressed == Directions.RIGHT) {
+					this.setVelX(0);
+					keyPressed = false;
+					whichKeyIsPressed = null;
+				}
+			}
 			break;
-
+			
 		default:
 			break;
 		}
 
 	}
-	// getter and setter of Player variables
-	public void setX(double d) {
-		this.x = d;
-	}
-
-	public void setY(double d) {
-		this.y = d;
-	}
-
-	public double getX() {
-		return this.x;
-	}
-
-	public double getY() {
-		return this.y;
-	}
-
-	public double getVelX() {
-		return velX;
-	}
-	public void setVelX(double velX) {
-		this.velX = velX;
-	}
-	public double getVelY() {
-		return velY;
-	}
-	public void setVelY(double velY) {
-		this.velY = velY;
-	}
-
 
 }

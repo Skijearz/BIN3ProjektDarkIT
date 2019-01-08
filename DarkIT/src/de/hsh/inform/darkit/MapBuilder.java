@@ -6,7 +6,6 @@ import java.awt.image.RenderedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
-//import java.net.URL;
 import java.util.HashMap;
 
 import javax.imageio.ImageIO;
@@ -23,6 +22,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
+
 public class MapBuilder {
 	private Pane gamePane;
 	private TMXMapReader mapReader = new TMXMapReader();
@@ -32,16 +32,17 @@ public class MapBuilder {
 	private int height;
 	private boolean debug = false;
 	private ArrayList <Rectangle> obstacles = new ArrayList <Rectangle>();
+	
+	
 
 	public MapBuilder(Pane pane, Maps map) {
 		gamePane = pane;
 	}
 
 	public void build() {
-
 		try {
-
-		
+			
+			
 			map = mapReader.readMap(Maps.getMapFile(Maps.map1));
 
 		} catch (Exception e) {
@@ -52,7 +53,6 @@ public class MapBuilder {
 		 */
 		width = map.getWidth();
 		height = map.getHeight();
-		System.out.println(map.getLayerCount());
 		/**
 		 * Iterate through all of the known layers of tiles
 		 */
@@ -123,6 +123,7 @@ public class MapBuilder {
 					}else {
 						//Add the image to the pane
 						gamePane.getChildren().add(iv);
+						
 						
 						
 					}
