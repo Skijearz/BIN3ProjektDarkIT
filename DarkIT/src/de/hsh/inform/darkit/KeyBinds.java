@@ -2,6 +2,7 @@ package de.hsh.inform.darkit;
 
 import de.hsh.inform.darkit.Enums.Directions;
 import de.hsh.inform.darkit.gui.GameWindowController;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 
 /**
@@ -13,31 +14,35 @@ import javafx.scene.layout.Pane;
  */
 public class KeyBinds {
 
-	public static void initializeMoveKeyBinds(Pane gamePane, Player p, GameLoop gl, GameWindowController gmc) {
+	public static void initializeMoveKeyBinds(Pane gamePane, Player player, GameLoop gl, GameWindowController gmc) {
 		
 		
 		gamePane.getScene().setOnKeyPressed(e -> {
 			switch (e.getCode()) {
 			case W:
-				p.moveKeyPress(Directions.UP);
+				player.moveKeyPress(Directions.UP);
 				break;
 
 			case A:
-				p.moveKeyPress(Directions.LEFT);
+				player.moveKeyPress(Directions.LEFT);
 				break;
 
 			case S:
-				p.moveKeyPress(Directions.DOWN);
+				player.moveKeyPress(Directions.DOWN);
 				break;
 
 			case D:
-				p.moveKeyPress(Directions.RIGHT);
+				player.moveKeyPress(Directions.RIGHT);
 				break;
 
 			case ESCAPE:
 				gl.gameTimer.stop();
 				gmc.switchToPauseMenu();
 				break;
+				
+			case SPACE:
+				
+				
 
 			default:
 				break;
@@ -46,19 +51,19 @@ public class KeyBinds {
 		gamePane.getScene().setOnKeyReleased(e -> {
 			switch (e.getCode()) {
 			case W:
-				p.moveKeyRelease(Directions.UP);
+				player.moveKeyRelease(Directions.UP);
 
 				break;
 			case A:
-				p.moveKeyRelease(Directions.LEFT);
+				player.moveKeyRelease(Directions.LEFT);
 
 				break;
 			case S:
-				p.moveKeyRelease(Directions.DOWN);
+				player.moveKeyRelease(Directions.DOWN);
 
 				break;
 			case D:
-				p.moveKeyRelease(Directions.RIGHT);
+				player.moveKeyRelease(Directions.RIGHT);
 
 				break;
 			default:

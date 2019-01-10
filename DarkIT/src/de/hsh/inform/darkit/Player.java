@@ -1,6 +1,9 @@
 package de.hsh.inform.darkit;
 
+
+
 import de.hsh.inform.darkit.Enums.Directions;
+import javafx.scene.paint.Color;
 
 /**
  * 
@@ -9,24 +12,17 @@ import de.hsh.inform.darkit.Enums.Directions;
  */
 public class Player extends Entity {
 
-	private static final double VELOCITY = 1.0;
 	private boolean keyPressed = false;
 	private Directions whichKeyIsPressed;
+	public Sprite isTouchingBox;
+	
 
 	public Player(int x, int y) {
 		super(x, y);
+		this.isTouchingBox = new Sprite(this.getX(),this.getY(),5,5,Color.AQUA,this,5,-5);
 
 	}
 
-	@Override
-	public void move(boolean collision) {
-		if (!collision) {
-			setX(getX() + getVelX());
-			setY(getY() + getVelY());
-		} /*
-			 * else { setVelX(0); setVelY(0); }
-			 */
-	}
 
 	/**
 	 * Player keyPress (move) handling method, set the velocity of the entity based
@@ -41,6 +37,8 @@ public class Player extends Entity {
 		case UP:
 			if (!keyPressed) {
 				this.setVelY(-VELOCITY);
+				this.isTouchingBox.setOffsetX(5);
+				this.isTouchingBox.setOffsetY(-5);
 				keyPressed = true;
 				whichKeyIsPressed = Directions.UP;
 			}
@@ -48,6 +46,8 @@ public class Player extends Entity {
 		case DOWN:
 			if (!keyPressed) {
 				this.setVelY(VELOCITY);
+				this.isTouchingBox.setOffsetX(5);
+				this.isTouchingBox.setOffsetY(16);
 				keyPressed = true;
 				whichKeyIsPressed = Directions.DOWN;
 			}
@@ -55,6 +55,8 @@ public class Player extends Entity {
 		case LEFT:
 			if (!keyPressed) {
 				this.setVelX(-VELOCITY);
+				this.isTouchingBox.setOffsetX(-5);
+				this.isTouchingBox.setOffsetY(5);
 				keyPressed = true;
 				whichKeyIsPressed = Directions.LEFT;		
 			}
@@ -63,6 +65,8 @@ public class Player extends Entity {
 			if (!keyPressed) {
 				this.setVelX(VELOCITY);
 				keyPressed = true;
+				this.isTouchingBox.setOffsetX(16);
+				this.isTouchingBox.setOffsetY(5);
 				whichKeyIsPressed = Directions.RIGHT;
 			}
 			break;

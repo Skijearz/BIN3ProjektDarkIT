@@ -1,6 +1,9 @@
 package de.hsh.inform.darkit;
 
+import java.util.ArrayList;
+
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 
 /**
  * 
@@ -9,7 +12,7 @@ import javafx.scene.paint.Color;
  */
 public class Entity {
 
-	// private static final double VELOCITY = 1.0;
+	protected static final double VELOCITY = 1.0;
 
 	private double x;
 	private double y;
@@ -20,7 +23,7 @@ public class Entity {
 	public Entity(int x, int y) {
 		this.x = x;
 		this.y = y;
-		this.collisionSprite = new Sprite(this.getX(),this.getY() , 20, 20, Color.YELLOW, this);
+		this.collisionSprite = new Sprite(this.getX(),this.getY() , 16, 16, Color.YELLOW, this);
 		System.out.println(this.collisionSprite);
 	}
 
@@ -31,14 +34,12 @@ public class Entity {
 	 * @param collision, boolean from the Collision class which checks if the player
 	 *        collision rectangle touches/overlaps with a obstacle obj.
 	 */
-	public void move(boolean collision) {
-		if (!collision) {
+	public void move(ArrayList<Entity> entityList,ArrayList <Rectangle> obstacles) {
+		if (!Collision.checkCollision(obstacles, entityList, this)) {
 			setX(getX() + getVelX());
 			setY(getY() + getVelY());
-		}/*else {
-			setVelX(0);
-			setVelY(0);
-		}*/
+		}
+		this.collisionSprite.Update();
 	}
 
 	// getter and setter of entity fields
@@ -82,4 +83,6 @@ public class Entity {
 		return this.getClass().getSimpleName() + " " + getX() + "," + getY();
 
 	}
+
+
 }

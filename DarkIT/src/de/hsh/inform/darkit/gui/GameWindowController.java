@@ -45,7 +45,7 @@ public class GameWindowController implements ControllerSet {
 
 	}
 	/**
-	 * on call, this method starts the gameloop and initialize entityobjects and sprites.
+	 * on call, this method starts the gameloop and initialize entity objects and sprites.
 	 * 
 	 */
 	public void gameStart() {
@@ -65,9 +65,10 @@ public class GameWindowController implements ControllerSet {
 		
 		
 		player = new Player(300, 450);
-		stone = new Stone(250, 500);
-		stone2 = new Stone(350, 500);
-		//stone.setVelX(0);
+		stone = new Stone(288, 400);
+		stone2 = new Stone(464, 400);
+		//stone.setVelY(-1);
+		//stone2.setVelY(-1);
 		entityList.add(stone);
 		entityList.add(stone2);
 		
@@ -76,7 +77,7 @@ public class GameWindowController implements ControllerSet {
 		spriteStone2 = new Sprite(stone2.getX(), stone2.getY(), 16, 16, Color.BLUE, stone2);
 		spritePlayer = new Sprite(player.getX(), player.getY(), 16, 16, Color.GREEN, player);
 		mb = new MapBuilder(getGamePane(), Maps.map1);
-		mb.build();
+		mb.build(Maps.map1);
 		gm = new GameLoop(this, this.getGamePane(), this.spritePlayer, spriteStone,spriteStone2, mb, entityList, (Player)player);
 
 		getGamePane().getChildren().add(spritePlayer);

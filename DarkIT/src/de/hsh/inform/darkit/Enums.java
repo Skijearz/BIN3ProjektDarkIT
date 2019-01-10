@@ -21,6 +21,9 @@ public class Enums {
 			return "rsc"+File.separatorChar+ map +".tmx";
 		}
 	}
+	public enum RelativPosition{
+		ABOVE,BELOW,LEFT,RIGHT;
+	}
 	
 }
 

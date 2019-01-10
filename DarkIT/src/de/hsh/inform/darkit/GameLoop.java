@@ -16,7 +16,6 @@ public class GameLoop {
 	private ArrayList<Entity> entityList;
 	MapBuilder mb;
 	AnimationTimer gameTimer;
-	private boolean collision;
 
 	/**
 	 * GameLoop Constructor
@@ -38,6 +37,8 @@ public class GameLoop {
 			gamePane.getChildren().add(e.collisionSprite);
 		}
 		gamePane.getChildren().add(player.collisionSprite);
+		gamePane.getChildren().add(player.isTouchingBox); 
+		System.out.println(player.isTouchingBox.toString());
 		KeyBinds.initializeMoveKeyBinds(this.gamePane, player, this, this.gmc);
 
 		this.createGameloop();
@@ -55,18 +56,26 @@ public class GameLoop {
 
 			@Override
 			public void handle(long now) {
-				collision = Collision.checkCollision(mb.getObstacleList(), entityList,player);
 				for (Entity e : entityList) {
-					e.move(collision);
-					e.collisionSprite.Update();
+					e.move(entityList,mb.getObstacleList());
+					
 				}
-				player.move(collision);
-				player.collisionSprite.Update();
+				player.move(entityList,mb.getObstacleList());
+				player.isTouchingBox.Update();
+				
+			
 				
 				spritePlayer.Update();
 				spriteStone.Update();
 				spriteStone2.Update();
-
+				if(Collision.checkIfPlayerIsTouchingStone(player, entityList)) {
+					Entity tmp = Collision.getStone(player, entityList);
+					EvaluatePosition.evaluatePosition(player, tmp);
+					
+				}
+				if(Collision.checkIfStoneIsOnGoalTile(entityList, mb.getGoalTiles())){
+					System.out.println("alle Steine auf ziel");
+				}
 			}
 		};
 	}

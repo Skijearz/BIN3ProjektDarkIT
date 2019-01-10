@@ -1,14 +1,10 @@
 package de.hsh.inform.darkit;
 
-import java.awt.Graphics;
+
 import java.awt.image.BufferedImage;
-import java.awt.image.RenderedImage;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
+
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import javax.imageio.ImageIO;
 
 import org.mapeditor.core.Map;
 import org.mapeditor.core.Tile;
@@ -16,6 +12,7 @@ import org.mapeditor.core.TileLayer;
 import org.mapeditor.io.TMXMapReader;
 
 import de.hsh.inform.darkit.Enums.Maps;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -32,6 +29,7 @@ public class MapBuilder {
 	private int height;
 	private boolean debug = false;
 	private ArrayList <Rectangle> obstacles = new ArrayList <Rectangle>();
+	private ArrayList <Rectangle> goalTiles = new ArrayList <Rectangle>();
 	
 	
 
@@ -39,11 +37,10 @@ public class MapBuilder {
 		gamePane = pane;
 	}
 
-	public void build() {
+	public void build(Maps levelMap) {
 		try {
 			
-			
-			map = mapReader.readMap(Maps.getMapFile(Maps.map1));
+			map = mapReader.readMap(Maps.getMapFile(levelMap));
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -79,6 +76,16 @@ public class MapBuilder {
 				for (int x = 0; x < width; x++) {
 					// Getting the tile at a specific cell 
 					tile = layer.getTileAt(x, y);
+					//If a tile is null, no tile set on this coordinate then skip this one
+					//and if x is the last tile and x++ would be out , increment y
+					if(tile == null) {
+						x++;
+						if(x >= width) {
+							x= 0;
+							y++;
+						}
+						tile = layer.getTileAt(x, y);
+					}
 					//Identify the TileID of the tile in this specific cell
 					tid = tile.getId();
 					// If the TileID is already known and stored in the Hashmap dont add it but get an image of this tile, 
@@ -103,7 +110,8 @@ public class MapBuilder {
 				
 					
 					//Check if the layer is called collision, if so, draw an rectangle on the position
-					//of an object which will have a collision box
+					//to create a collisonbox
+					//tid == 18 is a blank tile on the layer
 					if(layer.getName().equals("collision")&& tid != 18) {
 						Rectangle r = new Rectangle();
 						if(debug) {
@@ -119,52 +127,56 @@ public class MapBuilder {
 						
 						gamePane.getChildren().add(r);
 						
+						//Check if the layer is called goalTiles, if so, draw an rectangle on the position
+						//to create a box for checking if the stones are on the right place.
+					}else if(layer.getName().equals("goalTiles")&& tid != 18) {
+						Rectangle g = new Rectangle();
+						if(debug) {
+							g.setFill(Color.PURPLE);
+						}else {
+							g.setFill(Color.TRANSPARENT);
+							
+						}
+						g.setX(x*16);
+						g.setY((y*16)+4);
+						g.setWidth(16);
+						g.setHeight(16);
+						goalTiles.add(g);
+						
+						gamePane.getChildren().add(g);
+						gamePane.getChildren().add(iv);
 						
 					}else {
 						//Add the image to the pane
 						gamePane.getChildren().add(iv);
-						
-						
-						
 					}
-					
 				}
 			}
-			
 			System.out.println("tile image hash has " + tileHash.size() + " items");
 			tileHash = null;
 		}
-		
-
-		
 		map = null;
 		layer = null;
 	}
-	//Converting and Image to an javaFx image
-	//
-	public static javafx.scene.image.Image createImage(java.awt.Image image) throws Exception {
-		if (!(image instanceof RenderedImage)) {
-			BufferedImage bufferedImage = new BufferedImage(image.getWidth(null), image.getHeight(null),
-					BufferedImage.TYPE_INT_ARGB);
-			Graphics g = bufferedImage.createGraphics();
-			g.drawImage(image, 0, 0, null);
-			g.dispose();
-			image = bufferedImage;
-		}
-		ByteArrayOutputStream out = new ByteArrayOutputStream();
-		ImageIO.write((RenderedImage) image, "png", out);
-		out.flush();
-		ByteArrayInputStream in = new ByteArrayInputStream(out.toByteArray());
-		return new javafx.scene.image.Image(in);
+	//Converting an Image to an javaFx image
+	
+	public static javafx.scene.image.Image createImage(java.awt.Image image){
+		return SwingFXUtils.toFXImage((BufferedImage) image,null);
 	}
+
+	//Getter Methods
 	/**
-	 * Getter method
 	 * @return ArrayList of rectangles to determine obstacles
 	 */
 	public ArrayList <Rectangle> getObstacleList(){
 		return obstacles;
 	}
-
-
+	
+	/**
+	 * @return ArrayList of rectangles to determine where the goalTiles are;
+	 */
+	public ArrayList <Rectangle> getGoalTiles() {
+		return goalTiles;
+	}
 }
 
