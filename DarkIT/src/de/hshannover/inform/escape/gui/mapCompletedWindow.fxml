@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.hshannover.inform.escape.gui.MapCompletedWindow">
+   <children>
+      <Pane maxHeight="600.0" maxWidth="800.0" minHeight="600.0" minWidth="800.0" prefHeight="600.0" prefWidth="800.0">
+         <children>
+            <Label layoutX="202.0" layoutY="91.0" text="Du hast das Level geschafft">
+               <font>
+                  <Font size="33.0" />
+               </font>
+            </Label>
+            <Button layoutX="360.0" layoutY="288.0" mnemonicParsing="false" onAction="#nextLevel" prefHeight="25.0" prefWidth="79.0" text="Weiter" />
+            <Button layoutX="360.0" layoutY="347.0" mnemonicParsing="false" onAction="#switchToMainMenu" text="Hauptmenü" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
