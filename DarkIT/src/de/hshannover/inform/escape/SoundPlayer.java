@@ -10,13 +10,13 @@ public class SoundPlayer extends Thread{
     }
     
     public  void playSound(String SoundFileName) {
-        this.audio = new AudioClip(getClass().getResource("sounds/"+SoundFileName +".mp3").toExternalForm());
+        this.audio = new AudioClip(getClass().getResource("sounds/"+SoundFileName +".wav").toExternalForm());
         this.audio.setVolume(0.3);
         Thread playingSound = new Thread(this);
         playingSound.start();
     }
     public void playBGM(String SoundFileName) {
-        this.audio = new AudioClip(getClass().getResource("sounds/"+SoundFileName +".mp3").toExternalForm());
+        this.audio = new AudioClip(getClass().getResource("sounds/"+SoundFileName +".wav").toExternalForm());
         this.audio.setVolume(0.1);
         this.audio.setCycleCount(AudioClip.INDEFINITE);
         Thread playingSound = new Thread(this);

@@ -24,7 +24,7 @@ public class Nothing implements ControllerSet {
         try {
 
             nPane.setStyle("-fx-background-color: #000000");
-            Media media = new Media(getClass().getResource("/de/hshannover/inform/escape/useless/noOneIsAroundToHelp.mp4").toExternalForm());
+            Media media = new Media(getClass().getResource("/de/hshannover/inform/escape/useless/no.ogg").toExternalForm());
             MediaPlayer player = new MediaPlayer(media);
             MediaView view = new MediaView(player);
             player.setVolume(0.5);
