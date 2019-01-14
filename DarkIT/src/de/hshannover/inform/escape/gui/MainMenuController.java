@@ -32,7 +32,7 @@ public class MainMenuController implements ControllerSet {
 	@FXML
 	public void helpMenu() {
 		this.uselessCounter++;
-		if(uselessCounter %5 == 0) {
+		if(uselessCounter % 5 == 0) {
 			sm.changeScene(Scenes.nothing);
 			((Nothing)sm.getController(Scenes.nothing)).doNothing();
 		}else {

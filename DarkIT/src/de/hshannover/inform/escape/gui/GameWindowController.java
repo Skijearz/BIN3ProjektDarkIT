@@ -16,7 +16,6 @@ import de.hshannover.inform.escape.Stone;
 import de.hshannover.inform.escape.Enums.Maps;
 import de.hshannover.inform.escape.Enums.Scenes;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
@@ -38,8 +37,6 @@ public class GameWindowController implements ControllerSet {
 
 	@FXML
 	private Pane gamePane;
-	@FXML
-	private Button pause;
 
 	@Override
 	public ControllerSet getController(Scenes scene) {
@@ -106,7 +103,6 @@ public class GameWindowController implements ControllerSet {
 		mb.build(Maps.getMapFile(Maps.map1));
 		gameLoop = new GameLoop(this, this.getGamePane(), collisionBoxPlayer,Sprite , mb, entityList, (Player)player);
 		getGamePane().getChildren().addAll(Sprite);
-		pause.toFront();
 		this.initiaded = true;
 	}
 

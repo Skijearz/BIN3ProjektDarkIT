@@ -3,12 +3,12 @@ package de.hshannover.inform.escape.gui;
 
 
 import de.hshannover.inform.escape.SceneManager;
+import de.hshannover.inform.escape.SoundPlayer;
 import de.hshannover.inform.escape.Enums.Scenes;
 import javafx.fxml.FXML;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-import javafx.scene.media.MediaView;
+
 /**
  * 
  * Just nothing
@@ -17,38 +17,25 @@ import javafx.scene.media.MediaView;
 //Easter egg class :P
 public class Nothing implements ControllerSet {
 	SceneManager sm;
+	SoundPlayer sp = new SoundPlayer();
 	@FXML
 	private Pane nPane;
 	
-	public void doNothing() {
-        try {
+    public void doNothing() {
+        ImageView gifImageView = new ImageView(getClass().getResource("/de/hshannover/inform/escape/useless/noOneIsAroundToHelp.gif").toExternalForm());
+        
+        sp.playSound("none");
+        sp.setCycleCount();
+        nPane.getChildren().add(gifImageView);
 
-            nPane.setStyle("-fx-background-color: #000000");
-            Media media = new Media(getClass().getResource("/de/hshannover/inform/escape/useless/no.ogg").toExternalForm());
-            MediaPlayer player = new MediaPlayer(media);
-            MediaView view = new MediaView(player);
-            player.setVolume(0.5);
-            player.play();
-
-            this.nPane.getChildren().add(view);
-
-            nPane.getScene().setOnKeyPressed(e -> {
-                if (e.getCode() != null) {
-                    player.stop();
-                    sm.changeScene(Scenes.mainMenu);
-                }
-            });
-            player.setOnEndOfMedia(() -> {
-                player.stop();
+        nPane.getScene().setOnKeyPressed(e->{
+            if(e.getCode() != null) {
+                nPane.getChildren().remove(gifImageView);
+                sp.stopAudio();
                 sm.changeScene(Scenes.helpMenu);
-            });
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-	
-	}
+            }
+        });
+     }
 	
 	
 

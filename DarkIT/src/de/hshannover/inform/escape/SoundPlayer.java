@@ -22,6 +22,12 @@ public class SoundPlayer extends Thread{
         Thread playingSound = new Thread(this);
         playingSound.start();
     }
+    public void stopAudio() {
+        this.audio.stop();
+    }
+    public void setCycleCount() {
+        this.audio.setCycleCount(AudioClip.INDEFINITE);
+    }
     public void run() {
         
         this.audio.play();
